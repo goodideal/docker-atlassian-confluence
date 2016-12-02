@@ -25,5 +25,6 @@ if [ -f "${CERTIFICATE}" ]; then
   keytool -noprompt -storepass changeit -keystore ${JAVA_CACERTS} -import -file ${CERTIFICATE} -alias CompanyCA
 fi
 
+export CATALINA_OPTS="-Dconfluence.document.conversion.fontpath=/usr/share/fonts/truetype/msttcorefonts ${CATALINA_OPTS}"
 
 exec "$@"
