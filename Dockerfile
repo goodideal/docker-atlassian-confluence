@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM isuper/java-oracle:jdk_latest
 
 # Setup useful environment variables
 ENV CONF_HOME     /var/atlassian/confluence
@@ -11,9 +11,14 @@ ENV CERTIFICATE   $CONF_HOME/certificate
 # Install Atlassian Confluence and hepler tools and setup initial home
 # directory structure.
 RUN set -x \
+    && apt-get -y update && apt-get install -y software-properties-common python-software-properties \
+    && add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu precise universe" \
+    && add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu precise main restricted universe multiverse" \
+    && add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu precise-updates main restricted universe multiverse" \
+    && add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" \
     && apt-get update --quiet \
-    && apt-get install --quiet --yes --no-install-recommends libtcnative-1 xmlstarlet \
-    && apt-get install --quiet --yes apt-get install ttf-arphic-bkai00mp ttf-arphic-bsmi00lp ttf-arphic-gbsn00lp ttf-arphic-gbsn00lp \
+    && apt-get upgrade --quiet \
+    && apt-get install --quiet --yes --no-install-recommends libtcnative-1 xmlstarlet ttf-mscorefonts-installer \
     && apt-get clean \
     && mkdir -p                "${CONF_HOME}" \
     && chmod -R 700            "${CONF_HOME}" \
@@ -42,6 +47,12 @@ RUN set -x \
                                "${CONF_INSTALL}/conf/server.xml" \
     && touch -d "@0"           "${CONF_INSTALL}/conf/server.xml" \
     && chown daemon:daemon     "${JAVA_CACERTS}"
+
+# add chinese support
+RUN locale-gen zh_CN.UTF-8 en_US.UTF-8
+ENV LANG       zh_CN.UTF-8
+ENV LC_ALL     zh_CN.UTF-8
+
 
 # Use the default unprivileged account. This could be considered bad practice
 # on systems where multiple processes end up being executed by 'daemon' but
