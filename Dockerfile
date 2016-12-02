@@ -49,10 +49,14 @@ RUN set -x \
     && chown daemon:daemon     "${JAVA_CACERTS}"
 
 # add chinese support
+<<<<<<< HEAD
 RUN locale-gen zh_CN.UTF-8 en_US.UTF-8
 ENV LANG       zh_CN.UTF-8
 ENV LC_ALL     zh_CN.UTF-8
 
+=======
+RUN locale-gen zh_CN.UTF-8 en_US.UTF-8 zh_TW zh_TW.UTF-8
+>>>>>>> de52a2b0316bb5afe2b3bd82558fba5bf1e65e31
 
 # Use the default unprivileged account. This could be considered bad practice
 # on systems where multiple processes end up being executed by 'daemon' but
