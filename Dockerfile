@@ -13,6 +13,7 @@ ENV CERTIFICATE   $CONF_HOME/certificate
 RUN set -x \
     && apt-get update --quiet \
     && apt-get install --quiet --yes --no-install-recommends libtcnative-1 xmlstarlet \
+    && apt-get install --quiet --yes ttf-arphic-uming  xfonts-intl-chinese xfonts-wqy ttf-arphic-gbsn00lp ttf-arphic-gkai00mp ttf-arphic-bsmi00lp ttf-arphic-bkai00mp \
     && apt-get clean \
     && mkdir -p                "${CONF_HOME}" \
     && chmod -R 700            "${CONF_HOME}" \
