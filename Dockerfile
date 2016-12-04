@@ -18,7 +18,7 @@ RUN set -x \
     && add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" \
     && apt-get update --quiet \
     && apt-get upgrade --quiet \
-    && apt-get install --quiet --yes --no-install-recommends libtcnative-1 xmlstarlet ttf-mscorefonts-installer \
+    && apt-get install --quiet --yes --no-install-recommends libtcnative-1 xmlstarlet ttf-mscorefonts-installer vim \
     && apt-get clean \
     && mkdir -p                "${CONF_HOME}" \
     && chmod -R 700            "${CONF_HOME}" \
